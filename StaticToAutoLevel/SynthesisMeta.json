@@ -1,0 +1,14 @@
+{
+  "Nickname": "StaticToAutoLevel",
+  "Visibility": "Visible",
+  "OneLineDescription": "Swap forms",
+  "LongDescription": "Swap forms",
+  "PreferredAutoVersioning": "Default",
+  "RequiredMods": [],
+  "TargetedReleases": [
+    "SkyrimLE",
+    "SkyrimSE",
+    "SkyrimVR",
+    "SkyrimSEGog"
+  ]
+}
