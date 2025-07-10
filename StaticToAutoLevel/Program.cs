@@ -64,7 +64,7 @@ public static class Program
             }
             
             var pclevelmult = npc.Configuration.Level as PcLevelMult;
-            if (pclevelmult.LevelMult < 1.5f || npc.Configuration.CalcMinLevel <= 30)
+            if (pclevelmult != null && (pclevelmult.LevelMult < 1.5f || npc.Configuration.CalcMinLevel <= 30))
             {
                 if ((npc.Configuration.Flags & NpcConfiguration.Flag.Summonable) != 0) { continue; }
                 if (npc.Configuration.CalcMaxLevel < 15) { continue; }
