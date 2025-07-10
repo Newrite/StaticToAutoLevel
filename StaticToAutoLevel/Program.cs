@@ -62,6 +62,30 @@ public static class Program
             {
                 continue;
             }
+            
+            var pclevelmult = npc.Configuration.Level as PcLevelMult;
+            if (pclevelmult.LevelMult < 1.5f || npc.Configuration.CalcMinLevel <= 30)
+            {
+                if ((npc.Configuration.Flags & NpcConfiguration.Flag.Summonable) != 0) { continue; }
+                if (npc.Configuration.CalcMaxLevel < 15) { continue; }
+                var modifiedNpc = state.PatchMod.Npcs.GetOrAddAsOverride(npc);
+                var levelMult = (modifiedNpc.Configuration.Flags & NpcConfiguration.Flag.Unique) != 0 ? 1.5f : 1.0f;
+                if (pclevelmult.LevelMult < levelMult)
+                {
+                    modifiedNpc.Configuration.Level = new PcLevelMult() { LevelMult = levelMult };
+                }
+
+                if (npc.Configuration.CalcMinLevel > 30)
+                {
+                    var result = (short)(npc.Configuration.CalcMinLevel / 2);
+                    if (result < 25)
+                    {
+                        result = 25;
+                    }
+
+                    modifiedNpc.Configuration.CalcMinLevel = result;
+                }
+            }
 
             var staticlevel = npc.Configuration.Level as NpcLevel;
             if (staticlevel != null)
