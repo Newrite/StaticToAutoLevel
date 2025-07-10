@@ -66,6 +66,7 @@ public static class Program
             var staticlevel = npc.Configuration.Level as NpcLevel;
             if (staticlevel != null)
             {
+                if ((npc.Configuration.Flags & NpcConfiguration.Flag.Summonable) != 0) { continue; }
                 var currentLevel = staticlevel.Level;
                 var minLevel = currentLevel;
                 var maxLevel = (short)(minLevel * 2.5f);
