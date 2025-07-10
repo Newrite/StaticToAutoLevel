@@ -68,6 +68,7 @@ public static class Program
             {
                 if ((npc.Configuration.Flags & NpcConfiguration.Flag.Summonable) != 0) { continue; }
                 var currentLevel = staticlevel.Level;
+                if (currentLevel < 10) { continue; }
                 var minLevel = currentLevel;
                 var maxLevel = (short)(minLevel * 2.5f);
                 var modifiedNpc = state.PatchMod.Npcs.GetOrAddAsOverride(npc);
