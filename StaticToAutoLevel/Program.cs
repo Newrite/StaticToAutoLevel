@@ -62,6 +62,11 @@ public static class Program
             {
                 continue;
             }
+
+            if (!npc.Template.IsNull && (npc.Configuration.TemplateFlags & NpcConfiguration.TemplateFlag.Stats) != 0)
+            {
+                continue;
+            }
             
             var pclevelmult = npc.Configuration.Level as PcLevelMult;
             // if (pclevelmult != null && (pclevelmult.LevelMult < 1.5f || npc.Configuration.CalcMinLevel > 30))
