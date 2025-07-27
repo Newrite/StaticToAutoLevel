@@ -72,9 +72,9 @@ public static class Program
             // if (pclevelmult != null && (pclevelmult.LevelMult < 1.5f || npc.Configuration.CalcMinLevel > 30))
             if (pclevelmult != null && (npc.Configuration.CalcMinLevel > 30))
             {
-                if ((npc.Configuration.Flags & NpcConfiguration.Flag.Summonable) != 0) { continue; }
+                // if ((npc.Configuration.Flags & NpcConfiguration.Flag.Summonable) != 0) { continue; }
                 // if ((npc.Configuration.Flags & NpcConfiguration.Flag.IsGhost) != 0) { continue; }
-                if (npc.Configuration.CalcMaxLevel < 15) { continue; }
+                if (npc.Configuration.CalcMaxLevel < 10) { continue; }
                 var modifiedNpc = state.PatchMod.Npcs.GetOrAddAsOverride(npc);
                 // var levelMult = (modifiedNpc.Configuration.Flags & NpcConfiguration.Flag.Unique) != 0 ? 1.5f : 1.0f;
                 // if (pclevelmult.LevelMult < levelMult)
@@ -98,7 +98,7 @@ public static class Program
             var staticlevel = npc.Configuration.Level as NpcLevel;
             if (staticlevel != null)
             {
-                if ((npc.Configuration.Flags & NpcConfiguration.Flag.Summonable) != 0) { continue; }
+                // if ((npc.Configuration.Flags & NpcConfiguration.Flag.Summonable) != 0) { continue; }
                 // if ((npc.Configuration.Flags & NpcConfiguration.Flag.IsGhost) != 0) { continue; }
                 var currentLevel = staticlevel.Level;
                 if (currentLevel < 10) { continue; }
