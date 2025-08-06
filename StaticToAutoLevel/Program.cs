@@ -70,7 +70,7 @@ public static class Program
             
             var pclevelmult = npc.Configuration.Level as PcLevelMult;
             // if (pclevelmult != null && (pclevelmult.LevelMult < 1.5f || npc.Configuration.CalcMinLevel > 30))
-            if (pclevelmult != null && (npc.Configuration.CalcMinLevel > 30))
+            if (pclevelmult != null && (npc.Configuration.CalcMinLevel > 30 || pclevelmult.LevelMult > 1.5f))
             {
                 // if ((npc.Configuration.Flags & NpcConfiguration.Flag.Summonable) != 0) { continue; }
                 // if ((npc.Configuration.Flags & NpcConfiguration.Flag.IsGhost) != 0) { continue; }
@@ -91,6 +91,11 @@ public static class Program
                     }
 
                     modifiedNpc.Configuration.CalcMinLevel = result;
+                }
+
+                if (pclevelmult.LevelMult > 1.5f)
+                {
+                    modifiedNpc.Configuration.Level = new PcLevelMult() { LevelMult = 1.5f };
                 }
                 continue;
             }
