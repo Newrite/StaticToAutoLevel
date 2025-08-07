@@ -82,15 +82,9 @@ public static class Program
                 //     modifiedNpc.Configuration.Level = new PcLevelMult() { LevelMult = levelMult };
                 // }
 
-                if (npc.Configuration.CalcMinLevel > 30)
+                if (npc.Configuration.CalcMinLevel > 10)
                 {
-                    var result = (short)(npc.Configuration.CalcMinLevel / 2);
-                    if (result < 25)
-                    {
-                        result = 25;
-                    }
-
-                    modifiedNpc.Configuration.CalcMinLevel = result;
+                    modifiedNpc.Configuration.CalcMinLevel = 10;
                 }
 
                 if (pclevelmult.LevelMult > 1.5f)
@@ -107,8 +101,8 @@ public static class Program
                 // if ((npc.Configuration.Flags & NpcConfiguration.Flag.IsGhost) != 0) { continue; }
                 var currentLevel = staticlevel.Level;
                 if (currentLevel < 10) { continue; }
-                var minLevel = currentLevel;
-                var maxLevel = (short)(minLevel * 2.5f);
+                var minLevel = currentLevel > (short)(10) ? (short)(10) : currentLevel;
+                var maxLevel = (short)(currentLevel * 2.5f);
                 var modifiedNpc = state.PatchMod.Npcs.GetOrAddAsOverride(npc);
                 var levelMult = (modifiedNpc.Configuration.Flags & NpcConfiguration.Flag.Unique) != 0 ? 1.5f : 1.0f;
                 modifiedNpc.Configuration.Level = new PcLevelMult() { LevelMult = levelMult };
@@ -117,6 +111,6 @@ public static class Program
             }
         }
 
-        SynthesisLog("Done patching consum swapper!", true);
+        SynthesisLog("Done patching no static level!", true);
     }
 }
