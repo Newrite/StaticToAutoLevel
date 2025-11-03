@@ -70,7 +70,7 @@ public static class Program
             
             var pclevelmult = npc.Configuration.Level as PcLevelMult;
             // if (pclevelmult != null && (pclevelmult.LevelMult < 1.5f || npc.Configuration.CalcMinLevel > 30))
-            if (pclevelmult != null && (npc.Configuration.CalcMinLevel > 30 || pclevelmult.LevelMult > 1.5f))
+            if (pclevelmult != null && (npc.Configuration.CalcMinLevel > 10 || pclevelmult.LevelMult > 1.25f))
             {
                 // if ((npc.Configuration.Flags & NpcConfiguration.Flag.Summonable) != 0) { continue; }
                 // if ((npc.Configuration.Flags & NpcConfiguration.Flag.IsGhost) != 0) { continue; }
@@ -87,9 +87,9 @@ public static class Program
                     modifiedNpc.Configuration.CalcMinLevel = 10;
                 }
 
-                if (pclevelmult.LevelMult > 1.5f)
+                if (pclevelmult.LevelMult > 1.25f)
                 {
-                    modifiedNpc.Configuration.Level = new PcLevelMult() { LevelMult = 1.5f };
+                    modifiedNpc.Configuration.Level = new PcLevelMult() { LevelMult = 1.25f };
                 }
                 continue;
             }
@@ -101,10 +101,10 @@ public static class Program
                 // if ((npc.Configuration.Flags & NpcConfiguration.Flag.IsGhost) != 0) { continue; }
                 var currentLevel = staticlevel.Level;
                 if (currentLevel < 10) { continue; }
-                var minLevel = currentLevel > (short)(10) ? (short)(10) : currentLevel;
-                var maxLevel = (short)(currentLevel * 2.5f);
+                var minLevel = currentLevel > 10 ? (short)(10) : currentLevel;
+                var maxLevel = (short)(currentLevel * 2.0f);
                 var modifiedNpc = state.PatchMod.Npcs.GetOrAddAsOverride(npc);
-                var levelMult = (modifiedNpc.Configuration.Flags & NpcConfiguration.Flag.Unique) != 0 ? 1.5f : 1.0f;
+                var levelMult = (modifiedNpc.Configuration.Flags & NpcConfiguration.Flag.Unique) != 0 ? 1.25f : 1.0f;
                 modifiedNpc.Configuration.Level = new PcLevelMult() { LevelMult = levelMult };
                 modifiedNpc.Configuration.CalcMinLevel = minLevel;
                 modifiedNpc.Configuration.CalcMaxLevel = maxLevel;
