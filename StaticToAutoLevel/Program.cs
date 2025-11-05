@@ -70,11 +70,11 @@ public static class Program
             
             var pclevelmult = npc.Configuration.Level as PcLevelMult;
             // if (pclevelmult != null && (pclevelmult.LevelMult < 1.5f || npc.Configuration.CalcMinLevel > 30))
-            if (pclevelmult != null && (npc.Configuration.CalcMinLevel > 10 || pclevelmult.LevelMult > 1.25f))
+            if (pclevelmult != null && (npc.Configuration.CalcMinLevel > 12 || pclevelmult.LevelMult > 1.25f || npc.Configuration.CalcMaxLevel > 50))
             {
                 // if ((npc.Configuration.Flags & NpcConfiguration.Flag.Summonable) != 0) { continue; }
                 // if ((npc.Configuration.Flags & NpcConfiguration.Flag.IsGhost) != 0) { continue; }
-                if (npc.Configuration.CalcMaxLevel < 10) { continue; }
+                if (npc.Configuration.CalcMaxLevel < 12) { continue; }
                 var modifiedNpc = state.PatchMod.Npcs.GetOrAddAsOverride(npc);
                 // var levelMult = (modifiedNpc.Configuration.Flags & NpcConfiguration.Flag.Unique) != 0 ? 1.5f : 1.0f;
                 // if (pclevelmult.LevelMult < levelMult)
@@ -82,9 +82,14 @@ public static class Program
                 //     modifiedNpc.Configuration.Level = new PcLevelMult() { LevelMult = levelMult };
                 // }
 
-                if (npc.Configuration.CalcMinLevel > 10)
+                if (npc.Configuration.CalcMinLevel > 12)
                 {
-                    modifiedNpc.Configuration.CalcMinLevel = 10;
+                    modifiedNpc.Configuration.CalcMinLevel = 12;
+                }
+                
+                if (npc.Configuration.CalcMaxLevel > 50)
+                {
+                    modifiedNpc.Configuration.CalcMaxLevel = 50;
                 }
 
                 if (pclevelmult.LevelMult > 1.25f)
@@ -100,9 +105,9 @@ public static class Program
                 // if ((npc.Configuration.Flags & NpcConfiguration.Flag.Summonable) != 0) { continue; }
                 // if ((npc.Configuration.Flags & NpcConfiguration.Flag.IsGhost) != 0) { continue; }
                 var currentLevel = staticlevel.Level;
-                if (currentLevel < 10) { continue; }
-                var minLevel = currentLevel > 10 ? (short)(10) : currentLevel;
-                var maxLevel = (short)(currentLevel * 2.0f);
+                if (currentLevel < 12) { continue; }
+                var minLevel = currentLevel > 12 ? (short)(12) : currentLevel;
+                var maxLevel = (short)(currentLevel * 2.0f)  <= (short)(50) ? (short)(currentLevel * 2.0f) : (short)(50);
                 var modifiedNpc = state.PatchMod.Npcs.GetOrAddAsOverride(npc);
                 var levelMult = (modifiedNpc.Configuration.Flags & NpcConfiguration.Flag.Unique) != 0 ? 1.25f : 1.0f;
                 modifiedNpc.Configuration.Level = new PcLevelMult() { LevelMult = levelMult };
